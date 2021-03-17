@@ -13,8 +13,10 @@
 ### Validar campo
 - yarn add -S yup
 
-## Criptogrfia
+### Criptogrfia
 
 - yarn add bcryptjs
 
+### Json WebToken
 
+- yarn add install jsonwebtoken
