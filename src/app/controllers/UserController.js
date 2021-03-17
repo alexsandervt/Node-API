@@ -45,6 +45,33 @@ class UserController {
       });
     });
   }
+
+  //Excluindo usuario
+  async delete(req, res) {
+    const usuarioExiste = await User.findOne({ _id: req.params.id });
+
+    if (!usuarioExiste) {
+      return res.status(400).json({
+        error: true,
+        code: 121,
+        message: "Usuario não encontrado",
+      });
+    }
+
+    const user = await User.deleteOne({ _id: req.params.id }, (err) => {
+      if (err)
+        return res.status(400).json({
+          error: true,
+          code: 122,
+          message: "Usuário não foi excluido",
+        });
+    });
+
+    res.json({
+      error: false,
+      message: "Usuario excluido com sucesso",
+    });
+  }
 }
 
 export default new UserController();
