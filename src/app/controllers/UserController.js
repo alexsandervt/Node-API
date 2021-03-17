@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import bcrypt from "bcryptjs";
 import User from "../models/User";
 
 class UserController {
@@ -26,8 +27,11 @@ class UserController {
         message: "Error: Este e-mail já está cadastrado!",
       });
     }
+    // Criptografar senha
+    var dados = req.body;
+    dados.password = await bcrypt.hash(dados.password, 8);
 
-    const user = await User.create(req.body, (err) => {
+    const user = await User.create(dados, (err) => {
       if (err)
         return res.status(400).json({
           error: true,
