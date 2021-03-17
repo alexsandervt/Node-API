@@ -24,6 +24,23 @@ class UserController {
       });
   }
 
+  async show(req, res) {
+    User.findOne({ _id: req.params.id }, "_id name email createdAt updatedAt")
+      .then((user) => {
+        return res.json({
+          error: false,
+          user: user,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          erro: true,
+          code: 107,
+          message: "Não foi possivel executar a solicitação",
+        });
+      });
+  }
+
   async store(req, res) {
     //Validação de email, senha e password com a dependencia do YUP
     const schema = Yup.object().shape({
