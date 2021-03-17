@@ -3,6 +3,24 @@ import bcrypt from "bcryptjs";
 import User from "../models/User";
 
 class UserController {
+  async index(req, res) {
+    await User.find({})
+      .select("-password")
+      .then((users) => {
+        return res.json({
+          error: false,
+          users: users,
+        });
+      })
+      .catch((erro) => {
+        return res.status(400).json({
+          erroor: true,
+          code: 106,
+          message: "Não foi possivel executar a solicitação",
+        });
+      });
+  }
+
   async store(req, res) {
     //Validação de email, senha e password com a dependencia do YUP
     const schema = Yup.object().shape({
