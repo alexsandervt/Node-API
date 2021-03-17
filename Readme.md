@@ -20,3 +20,7 @@
 ### Json WebToken
 
 - yarn add install jsonwebtoken
+
+### Paginação com mongoose Paginate-v2
+
+- yarn add mongoose-paginate-v2

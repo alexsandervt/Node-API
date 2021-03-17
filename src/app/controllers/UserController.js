@@ -4,8 +4,11 @@ import User from "../models/User";
 
 class UserController {
   async index(req, res) {
-    await User.find({})
-      .select("-password")
+    const { page = 1 } = req.query;
+    const { limit = 40 } = req.query;
+    console.log(page);
+
+    await User.paginate({}, { select: "_id name email", page, limit })
       .then((users) => {
         return res.json({
           error: false,
